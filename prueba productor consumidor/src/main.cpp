@@ -29,7 +29,7 @@ void setup()
       1,              /* priority of the task */
       &consumidor,    /* Task handle to keep track of created task */
       1);             /* pin task to core 1 */
-      
+  // vTaskDelay(500 / 1);
   xTaskCreatePinnedToCore(
       productorcode, /* Task function. */
       "productor",   /* name of task. */
