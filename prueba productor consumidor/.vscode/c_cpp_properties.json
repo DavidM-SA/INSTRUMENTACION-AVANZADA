@@ -8,8 +8,8 @@
         {
             "name": "PlatformIO",
             "includePath": [
-                "c:/Users/Sakry/ownCloud - David Martín-Sacristán Avilés@keybykey.ddns.net/Ingenieria Mecatronica/4 año/2 Cuatrimestre/Instrumentacion Avazada/Esp-32/prueba productor consumidor/include",
-                "c:/Users/Sakry/ownCloud - David Martín-Sacristán Avilés@keybykey.ddns.net/Ingenieria Mecatronica/4 año/2 Cuatrimestre/Instrumentacion Avazada/Esp-32/prueba productor consumidor/src",
+                "c:/Users/Sakry/ownCloud - David Martín-Sacristán Avilés@keybykey.ddns.net/Github/prueba productor consumidor/include",
+                "c:/Users/Sakry/ownCloud - David Martín-Sacristán Avilés@keybykey.ddns.net/Github/prueba productor consumidor/src",
                 "C:/Users/Sakry/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32/include/newlib/platform_include",
                 "C:/Users/Sakry/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32/include/freertos/include",
                 "C:/Users/Sakry/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32/include/freertos/include/esp_additions/freertos",
@@ -238,8 +238,8 @@
             "browse": {
                 "limitSymbolsToIncludedHeaders": true,
                 "path": [
-                    "c:/Users/Sakry/ownCloud - David Martín-Sacristán Avilés@keybykey.ddns.net/Ingenieria Mecatronica/4 año/2 Cuatrimestre/Instrumentacion Avazada/Esp-32/prueba productor consumidor/include",
-                    "c:/Users/Sakry/ownCloud - David Martín-Sacristán Avilés@keybykey.ddns.net/Ingenieria Mecatronica/4 año/2 Cuatrimestre/Instrumentacion Avazada/Esp-32/prueba productor consumidor/src",
+                    "c:/Users/Sakry/ownCloud - David Martín-Sacristán Avilés@keybykey.ddns.net/Github/prueba productor consumidor/include",
+                    "c:/Users/Sakry/ownCloud - David Martín-Sacristán Avilés@keybykey.ddns.net/Github/prueba productor consumidor/src",
                     "C:/Users/Sakry/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32/include/newlib/platform_include",
                     "C:/Users/Sakry/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32/include/freertos/include",
                     "C:/Users/Sakry/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32/include/freertos/include/esp_additions/freertos",
