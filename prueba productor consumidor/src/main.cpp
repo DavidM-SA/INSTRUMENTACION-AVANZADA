@@ -2,7 +2,7 @@
 #include "esp_freertos_hooks.h"
 TaskHandle_t productor;
 TaskHandle_t consumidor;
-
+222222222222
 bool iddleArduino(void);
 
 void productorcode(void *pvParameters);
