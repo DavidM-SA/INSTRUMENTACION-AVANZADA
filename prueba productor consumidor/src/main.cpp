@@ -1,130 +1,133 @@
 #include <Arduino.h>
 #include "esp_freertos_hooks.h"
-TaskHandle_t productor;
-TaskHandle_t consumidor;
+#include "fir_filter.h"
+#include "driver/adc.h"
+#include "esp_adc_cal.h"
 
-bool iddleArduino(void);
-
+// Cabeceras funciones
 void productorcode(void *pvParameters);
 void consumidorcode(void *pvParameters);
+//  void plottercode(void *pvParameters);
 
+// variables:
+SampleFilter filtroFIR;
 uint32_t Senal;
 
-QueueHandle_t colaInt;
-QueueHandle_t timeSend;
-QueueHandle_t timeRecive;
+// Conversor analogico digital
+esp_adc_cal_characteristics_t adc_chars;
+esp_adc_cal_value_t val_type;
+
+// handle de las colas
+QueueHandle_t queuePut;
+// QueueHandle_t queueGet;
+
+// handle tareas
+TaskHandle_t productor;
+TaskHandle_t consumidor;
+//  TaskHandle_t plotter;
 
 void setup()
 {
   Serial.begin(921600);
-  colaInt = xQueueCreate(10, sizeof(uint32_t));
-  timeSend = xQueueCreate(10, sizeof(int));
-  timeRecive = xQueueCreate(10, sizeof(int));
-  esp_register_freertos_idle_hook(iddleArduino);
+
+  // inicializar adc
+  val_type = esp_adc_cal_characterize(ADC_UNIT_1, ADC_ATTEN_DB_11, ADC_WIDTH_BIT_12, 3300, &adc_chars);
+  
+  // inicializamos filtro
+  SampleFilter_init(&filtroFIR);
+
+  // crear colas
+  queuePut = xQueueCreate(10, sizeof(uint32_t));
+  // queueGet = xQueueCreate(10, sizeof(double));
+
+  // crear tareas
   xTaskCreatePinnedToCore(
       consumidorcode, /* Task function. */
       "consumidor",   /* name of task. */
       10000,          /* Stack size of task */
       NULL,           /* parameter of the task */
-      1,              /* priority of the task */
+      2,              /* priority of the task */
       &consumidor,    /* Task handle to keep track of created task */
       1);             /* pin task to core 1 */
-  // vTaskDelay(500 / 1);
+
   xTaskCreatePinnedToCore(
       productorcode, /* Task function. */
       "productor",   /* name of task. */
       10000,         /* Stack size of task */
       NULL,          /* parameter of the task */
-      1,             /* priority of the task */
+      2,             /* priority of the task */
       &productor,    /* Task handle to keep track of created task */
       0);            /* pin task to core 0 */
-  // vTaskDelay(500 / 1);
+
+  // xTaskCreatePinnedToCore(
+  //     plottercode, /* Task function. */
+  //     "plotter",   /* name of task. */
+  //     10000,       /* Stack size of task */
+  //     NULL,        /* parameter of the task */
+  //     1,           /* priority of the task */
+  //     &plotter,    /* Task handle to keep track of created task */
+  //     1);
 }
 
 void loop()
 {
-  int env, rec;
-  if (xQueueReceive(colaInt, &(env), (TickType_t)8) != pdTRUE)
-  {
-    Serial.println("No se ha podido recibir el tiempo envio a la cola");
-  }
-  if (xQueueReceive(colaInt, &(rec), (TickType_t)8) != pdTRUE)
-  {
-    Serial.println("No se ha podido recibir el tiempo recibir a la cola");
-  }
-  Serial.print("El tiempo de envio es:");
-  Serial.print(env);
-  Serial.print("\t");
-  Serial.print("El tiempo de recibir es:");
-  Serial.println(rec);
-}
-
-bool iddleArduino(void)
-{
-  //Serial.println("Estamos en iddle");
-  return true;
 }
 
 void productorcode(void *pvParameters)
 {
-  if (colaInt != 0)
+  for (;;)
   {
-    for (;;)
-    {
-      int prevTime = millis();
-      for (int deg = 0; deg < 360; deg = deg + 1)
-      {
-        int f_dac_out = 127 + 127 * sin(2 * PI * deg / 360); // Function generates Sine Wave.
-        // xQueueGenericSend(colaInt, (void *)&Señal, (TickType_t)10, queueSEND_TO_BACK); // envio del dato a la cola
-        Senal = f_dac_out;
-        if (xQueueGenericSend(colaInt, (void *)&Senal, (TickType_t)10, queueSEND_TO_BACK) != pdPASS)
-        {
-          Serial.println("No se ha podido enviar el dato a la cola");
-        }
-        vTaskDelay(1);
-      }
-      int time = millis() - prevTime;
+    // leemos datos conversor analogico
+    uint32_t reading = adc1_get_raw(ADC1_CHANNEL_7);
+    uint32_t voltaje = esp_adc_cal_raw_to_voltage(4095 - reading, &adc_chars);
 
-      if (xQueueGenericSend(colaInt, (void *)&time, (TickType_t)10, queueSEND_TO_BACK) != pdPASS)
-      {
-        Serial.println("No se ha podido enviar el tiempo envio a la cola");
-      }
+    // mandamos dato a la cola
+    if (xQueueGenericSend(queuePut, (void *)&voltaje, (TickType_t)10, queueSEND_TO_BACK) != pdPASS)
+    {
+      Serial.println("No se ha podido enviar el dato a la cola");
     }
+    //********Test para la cola********
+    // imprimimos dato: 
+    //Serial.print(">sin:");
+    //Serial.println(voltaje);
+    /*
+    SampleFilter_put(&filtroFIR, voltaje);
+    double filtro = SampleFilter_get(&filtroFIR);
+
+    Serial.print(">con:");
+    Serial.println(filtro);
+    */
+    // retraso para que no valla a fondo perdido
+    vTaskDelay(1);
   }
 }
 
 void consumidorcode(void *pvParameters)
 {
-  int count = 0;
   for (;;)
   {
-    int prevTime = micros();
-    uint32_t signalR;
-    if (xQueueReceive(colaInt, &(signalR), (TickType_t)8) == pdTRUE)
+    //int prevTime = micros();
+    int signalR;
+    if (xQueueReceive(queuePut, &(signalR), (TickType_t)8) != pdTRUE)
     {
-      //Serial.print(">Señal recibida: ");
-      //Serial.println(signalR);
-      if (count < 20)
-      {
-        count++;
-        signalR;
-      }
-      else
-      {
-        //Serial.print(">Señal Comprimida: ");
-        //Serial.println(signalR);
-        count = 0;
-      }
+      Serial.println("No se ha podido recibir el dato de la cola");
     }
-    else
-    {
-      Serial.println("No se ha podido recibir el dato a la cola");
-    }
-    int time = micros() - prevTime;
-    // Serial.println(time);
-    if (xQueueGenericSend(colaInt, (void *)&time, (TickType_t)10, queueSEND_TO_BACK) != pdPASS)
-    {
-      Serial.println("No se ha podido enviar el tiempo recibir a la cola");
-    }
+    Serial.print(">sin:");
+    Serial.println(signalR);
+
+    SampleFilter_put(&filtroFIR, signalR);
+    double filtro = SampleFilter_get(&filtroFIR);
+
+    Serial.print(">con:");
+    Serial.println(filtro);
+    //Serial.print(">time cons:");
+    //Serial.println(micros()-prevTime);
   }
 }
+/*void plottercode(void *pvParameters)
+{
+  for (;;)
+  {
+    // double SampleFilter_get(&filtroFIR);
+  }
+}*/
