@@ -1,0 +1,76 @@
+#include <Arduino.h>
+#include "esp_freertos_hooks.h"
+#include "fir_filter.h"
+
+SampleFilter filtroFIR;
+
+TaskHandle_t productor;
+TaskHandle_t consumidor;
+
+bool iddleArduino(void);
+
+void productorcode(void *pvParameters);
+void consumidorcode(void *pvParameters);
+
+uint32_t Senal;
+
+QueueHandle_t colaInt;
+QueueHandle_t timeSend;
+QueueHandle_t timeRecive;
+
+void setup()
+{
+  Serial.begin(921600);
+  /*colaInt = xQueueCreate(10, sizeof(uint32_t));
+  timeSend = xQueueCreate(10, sizeof(int));
+  timeRecive = xQueueCreate(10, sizeof(int));*/
+
+  void SampleFilter_init(&filtroFIR);
+  dac_output_enable(DAC_CHANNEL_1);
+  
+  esp_register_freertos_idle_hook(iddleArduino);
+  xTaskCreatePinnedToCore(
+      consumidorcode, /* Task function. */
+      "consumidor",   /* name of task. */
+      10000,          /* Stack size of task */
+      NULL,           /* parameter of the task */
+      1,              /* priority of the task */
+      &consumidor,    /* Task handle to keep track of created task */
+      1);             /* pin task to core 1 */
+
+  xTaskCreatePinnedToCore(
+      productorcode, /* Task function. */
+      "productor",   /* name of task. */
+      10000,         /* Stack size of task */
+      NULL,          /* parameter of the task */
+      1,             /* priority of the task */
+      &productor,    /* Task handle to keep track of created task */
+      0);            /* pin task to core 0 */
+}
+
+void loop()
+{
+}
+
+void productorcode(void *pvParameters)
+{
+  if (colaInt != 0)
+  {
+    for (;;)
+    {
+      double input;
+      input=
+      void SampleFilter_put(&filtroFIR, double input);
+
+    }
+  }
+}
+
+void consumidorcode(void *pvParameters)
+{
+  int count = 0;
+  for (;;)
+  {
+    double SampleFilter_get(&filtroFIR);
+  }
+}
