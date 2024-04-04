@@ -1,5 +1,18 @@
+/**
+ * @file fir_filter.cpp
+ * @author David Martín-Sacristán Avilés (https://github.com/DavidM-SA/INSTRUMENTACION-AVANZADA)
+ * @brief Valores calculados con http://t-filter.engineerjs.com/
+ * @version 0.1
+ * @date 2024-04-04
+ * 
+ * @copyright Copyright (c) 2024
+ * 
+ */
 #include "fir_filter.h"
-
+/**
+ * @brief Valores del filtro para que funcione a nuestras especificaciones calculados con http://t-filter.engineerjs.com/
+ * 
+ */
 static double filter_taps[SAMPLEFILTER_TAP_NUM] = {
   0.0051507710019452835,
   0.0022311024026411435,
@@ -75,20 +88,34 @@ static double filter_taps[SAMPLEFILTER_TAP_NUM] = {
   0.0022311024026411435,
   0.0051507710019452835
 };
-
+/**
+ * @brief SampleFilter_init inicializa el Filtro figital.
+ * 
+ * @param f Puntero a la variable tipo SampleFilter para inicializar el filtro .
+ */
 void SampleFilter_init(SampleFilter* f) {
   int i;
   for(i = 0; i < SAMPLEFILTER_TAP_NUM; ++i)
     f->history[i] = 0;
   f->last_index = 0;
 }
-
+/**
+ * @brief SampleFilter_put pasamos a la funcion la variable a filtrar.
+ * 
+ * @param f Puntero a la variable tipo SampleFilter para inicializar el filtro.
+ * @param input Variable a filtrar.
+ */
 void SampleFilter_put(SampleFilter* f, double input) {
   f->history[f->last_index++] = input;
   if(f->last_index == SAMPLEFILTER_TAP_NUM)
     f->last_index = 0;
 }
-
+/**
+ * @brief SampleFilter_put Devuelve la variable filtrada.
+ * 
+ * @param f Puntero a la variable tipo SampleFilter para inicializar el filtro.
+ * @return double Devuelve el valor filtrado.
+ */
 double SampleFilter_get(SampleFilter* f) {
   double acc = 0;
   int index = f->last_index, i;
