@@ -131,6 +131,11 @@
  C:/Users/Sakry/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32/include/esp_hw_support/include/soc/esp32/spiram.h \
  C:/Users/Sakry/.platformio/packages/framework-arduinoespressif32/cores/esp32/io_pin_remap.h \
  C:/Users/Sakry/.platformio/packages/framework-arduinoespressif32/cores/esp32/Arduino.h \
+ C:/Users/Sakry/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32/include/esp_system/include/esp_freertos_hooks.h \
+ include/fir_filter.h \
+ C:/Users/Sakry/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32/include/driver/include/driver/adc.h \
+ C:/Users/Sakry/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32/include/hal/include/hal/adc_types.h \
+ C:/Users/Sakry/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32/include/esp_adc_cal/include/esp_adc_cal.h \
  .pio/libdeps/az-delivery-devkit-v4/EspMQTTClient/src/EspMQTTClient.h \
  C:/Users/Sakry/.platformio/packages/framework-arduinoespressif32/libraries/ArduinoOTA/src/ArduinoOTA.h \
  C:/Users/Sakry/.platformio/packages/framework-arduinoespressif32/libraries/WiFi/src/WiFi.h \
