@@ -1,2 +1,0 @@
-.pio/build/az-delivery-devkit-v4/src/fir_filter.c.o: src/fir_filter.c \
- include/fir_filter.h
