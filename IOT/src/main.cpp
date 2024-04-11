@@ -26,8 +26,9 @@ void Signal_Values_Code(void *pvParameters);
 
 // variables:
 SampleFilter filterFIR;
-uint32_t signal;
-uint64_t repet = 0, averaje, max, min;
+uint32_t senal;
+int repet = 0;
+float  averaje, maxim, minimim=4500;
 
 // handle de las colas
 QueueHandle_t colaSignal;
@@ -43,7 +44,13 @@ TaskHandle_t filter;
 TaskHandle_t data_obtain;
 
 // mqtt
+/**
+ * @brief Otra forma de poner la matriz usada para darse de alta en un Topic.
+ * 
+ * @param payload Parametro de la libreria usada para MQTT.
+ */
 void Imprimir(const String &payload);
+
 /**
  * @brief Datos de la red y del Broker para la conexion MQTT
  *
@@ -72,48 +79,25 @@ void setup()
   Serial.begin(921600);
 
   // inicializar adc
-  /**
-   * @brief Inicializamos el Conversor Analógico-Digital.
-   * 
-   */
   val_type = esp_adc_cal_characterize(ADC_UNIT_1, ADC_ATTEN_DB_11, ADC_WIDTH_BIT_12, 3300, &adc_chars);
 
   // inicializamos filtro
-  /**
-   * @brief Creamos un nuevo objeto SampleFilter_init .
-   * 
-   */
   SampleFilter_init(&filterFIR);
 
   // crear colas
-  /**
-   * @brief Creamos la cola de la señal.
-   * 
-   */
   colaSignal = xQueueCreate(10, sizeof(uint32_t));
-  /**
-   * @brief Creamos la cola de la señal filtrada.
-   * 
-   */
   colaFiltro = xQueueCreate(10, sizeof(uint32_t));
 
   // crear tareas
-  /**
-   * @brief creamos la tarea para obtener la señal del Conversor Analógico-Digital
-   * 
-   */
   xTaskCreatePinnedToCore(
       signalCode, /* Task function. */
-      "signal",   /* name of task. */
+      "senal",   /* name of task. */
       10000,      /* Stack size of task */
       NULL,       /* parameter of the task */
       3,          /* priority of the task */
       &analog,    /* Task handle to keep track of created task */
       1);         /* pin task to core 1 */
-  /**
-   * @brief creamos la tarea para filtrar la señal del Conversor Analógico-Digital
-   * 
-   */
+
   xTaskCreatePinnedToCore(
       filterCode, /* Task function. */
       "filter",   /* name of task. */
@@ -122,10 +106,7 @@ void setup()
       2,          /* priority of the task */
       &filter,    /* Task handle to keep track of created task */
       0);         /* pin task to core 0 */
-  /**
-   * @brief creamos la tarea para calcular los valores maximos minimos y media de la señal filtrada
-   * 
-   */
+
   xTaskCreatePinnedToCore(
       Signal_Values_Code, /* Task function. */
       "Average",          /* name of task. */
@@ -144,7 +125,7 @@ void onConnectionEstablished()
   // Dos formas de darse de alta en un topic.
   client.subscribe("Eupla806131", [](const String &payload)
                    { Serial.println(payload); });
-  client.subscribe("Eupla806131/filtros", Imprimir);
+  client.subscribe("Eupla806131/filtros/", Imprimir);
 }
 
 /**
@@ -167,13 +148,14 @@ void signalCode(void *pvParameters)
   {
     // leemos datos conversor analogico
     uint32_t reading = adc1_get_raw(ADC1_CHANNEL_7);
-    uint32_t voltaje = esp_adc_cal_raw_to_voltage(4095 - reading, &adc_chars);
+    int voltaje = esp_adc_cal_raw_to_voltage(4095 - reading, &adc_chars);
 
     // mandamos dato a la cola
     if (xQueueGenericSend(colaSignal, (void *)&voltaje, (TickType_t)10, queueSEND_TO_BACK) != pdPASS)
     {
       Serial.println("No se ha podido enviar el dato sin filtrar a la cola");
     }
+    //asegurarse que se lean los datos a 1Mhz
     vTaskDelay(1);
   }
 }
@@ -194,7 +176,7 @@ void filterCode(void *pvParameters)
     }
 
     SampleFilter_put(&filterFIR, signalR);
-    double filtro = SampleFilter_get(&filterFIR);
+    float filtro = SampleFilter_get(&filterFIR)/1000;
 
     if (xQueueGenericSend(colaFiltro, (void *)&filtro, (TickType_t)10, queueSEND_TO_BACK) != pdPASS)
     {
@@ -212,38 +194,40 @@ void Signal_Values_Code(void *pvParameters)
 {
   for (;;)
   {
-    int value;
+    float value;
     if (xQueueReceive(colaFiltro, &(value), (TickType_t)8) != pdTRUE)
     {
       Serial.println("No se ha podido recibir para media");
     }
     else
     {
-      /// Sacamos la media
+      // Sacamos la media
       averaje = averaje + value;
-      /// sacamos el maximo
-      if (value > max)
+
+      // sacamos el maximo
+      if (value > maxim)
       {
-        max = value;
+        maxim = value;
       }
-      /// sacamos el minimo
-      if (value < min)
+      
+      // sacamos el minimo
+      if (value < minimim)
       {
-        min = value;
+        minimim = value;
       }
       repet++;
       if (repet > 1000)
       {
         if (client.isMqttConnected())
         {
-          client.publish("Eupla806131/filtros/media", String(averaje / 1000));
-          client.publish("Eupla806131/filtros/max", String(max));
-          client.publish("Eupla806131/filtros/min", String(min));
+          client.publish("Eupla806131/filtros/media", String(averaje / (1000)));
+          client.publish("Eupla806131/filtros/max", String(maxim));
+          client.publish("Eupla806131/filtros/min", String(minimim));
         }
         repet = 0;
         averaje = 0;
-        max = 0;
-        min = 0;
+        maxim = 0;
+        minimim = 4500;
       }
     }
   }
