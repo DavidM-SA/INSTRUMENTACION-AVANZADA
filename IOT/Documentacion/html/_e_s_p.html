@@ -1,0 +1,170 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.10.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Practica 1 Filtro Digital y Comunicación MQTT: ESP-32.</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+  $(function() { init_search(); });
+/* @license-end */
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="Logo (Teléfono) (Personalizado).jpg"/></td>
+  <td id="projectalign">
+   <div id="projectname">Practica 1 Filtro Digital y Comunicación MQTT<span id="projectnumber">&#160;BETA</span>
+   </div>
+   <div id="projectbrief">Practica en la que se filtra una señal y mediante la comunicacion MQTT enviamos a un broker el valor maximo, minimo y la media</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect"                onmouseover="return searchBox.OnSearchSelectShow()"                onmouseout="return searchBox.OnSearchSelectHide()">&#160;</span>
+          <input type="text" id="MSearchField" value="" placeholder="Buscar" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.svg" alt=""/></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.10.0 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){initNavTree('_e_s_p.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Cargando...</div>
+<div class="SRStatus" id="Searching">Buscando...</div>
+<div class="SRStatus" id="NoMatches">Nada coincide</div>
+</div>
+</div>
+</div>
+</div>
+
+<div><div class="header">
+  <div class="headertitle"><div class="title">ESP-32.</div></div>
+</div><!--header-->
+<div class="contents">
+<div class="textblock"><h1><a class="anchor" id="IntroESP"></a>
+Introducción.</h1>
+<p>En esta practica hemos usado el ESP32 DEV KIT que es un microcontrolador de la empresa <b>Expressif Systems</b>. Es un claro sucesor del ESP8266</p>
+<h1><a class="anchor" id="EstrucESP"></a>
+Estructura ESP-32.</h1>
+<p>Este es el diagrama del ESP-32: <br  />
+<img src="E:\Repositorios\Github\INSTRUMENTACION-AVANZADA\IOT\Doc_Images\diagrama.jpeg" alt="" class="inline"/> <br  />
+ <br  />
+Esta placa electrónica contiene los siguientes pines:</p>
+<ul>
+<li>19 canales de convertidor analógico a digital (ADC)</li>
+<li>3 interfaces SPI</li>
+<li>3 interfaces UART</li>
+<li>2 interfaces I2C</li>
+<li>16 canales de salida PWM</li>
+<li>2 convertidores de digital a analógico (DAC)</li>
+<li>2 interfaces I2S</li>
+<li>10 GPIO de detección capacitiva</li>
+</ul>
+<p>Se presenta también el diagrama de bloques de esta tarjeta electrónica.</p>
+<p><img src="E:\Repositorios\Github\INSTRUMENTACION-AVANZADA\IOT\Doc_Images\BLOQUES-ESP32.jpeg" alt="" class="inline"/></p>
+<h1><a class="anchor" id="ProgramESP"></a>
+Programar ESP-32.</h1>
+<p>Para poder programar el ESP-32, podemos usar dos entornos:</p><ul>
+<li><b>Arduino IDE</b> Es un entorno de facil uso ya que si se viene de programar placas Arduino, podria ser un entorno amigable, pero es un entorno que podria tener limitaciones en diferentes sectores.</li>
+<li><b>ESP-IDF (Espressif IoT Development Framework)</b> Es el entorno de desarrollo de software desarrollado por <em>Espressif</em>, puede ayudar a los usuarios a desarrollar rápidamente aplicaciones de Internet de las cosas (IoT) para satisfacer las necesidades de los usuarios de Wi-Fi, Bluetooth y bajo consumo de energía. <br  />
+Es el usado por muchos desarrolladores; y para poder programar usando esta aplicación se deben tener en cuenta ciertos requerimientos, los cuales se describen en el siguiente enlace: <a href="https://docs.espressif.com/projects/esp-idf/en/release-v4.1/get-started/index.html">https://docs.espressif.com/projects/esp-idf/en/release-v4.1/get-started/index.html</a><br  />
+Hay que destacar que el entorno de desarrollo de <em>Espressif</em> esta basado sobre <em>FreeRTOS</em>. </li>
+</ul>
+<h2><a class="anchor" id="FreeRTOS"></a>
+FreeRTOS.</h2>
+<p>FreeRTOS es un sistema operativo en tiempo real (RTOS) para microcontroladores y microprocesadores. Y está distribuido bajo la licencia MIT.<br  />
+La programación sin un sistema operativo, conocida como programación “bare-metal”, puede ser más exigente para el programador. Una de las principales ventajas de usar un sistema operativo es la multitarea, que permite que un hilo suspenda su ejecución para que otro hilo se ejecute sin que el hilo original pierda su contexto. Esto aumenta la confiabilidad del sistema.<br  />
+El RTOS ofrece recursos que permiten garantizar una respuesta del sistema flexible. Semáforos, mutex, colas de mensajes y tareas con prioridad definida están entre estos recursos. Los sistemas se pueden dividir en dos categorías principales: Real-Time Soft y Hard, según los requisitos del sistema.<br  />
+</p><ul>
+<li>Ventajas de FreeRTOS<ul>
+<li>Las prioridades de las tareas ayudan a cumplir con los tiempos de respuesta de la aplicación.</li>
+<li>Mejora el mantenimiento y la escalabilidad del sistema.</li>
+<li>Ayuda a la modularidad de las tareas.</li>
+<li>Ayuda a la definición de interfaces de los distintos módulos.</li>
+<li>Facilita la reutilización de código.</li>
+<li>Permite realizar tareas (idle task) cuando el sistema está desocupado o ir a un estado de bajo consumo.</li>
+<li>Es flexible con el manejo de interrupciones.</li>
+</ul>
+</li>
+<li>Implementación de FreeRTOS.<br  />
+FreeRTOS está diseñado para ser pequeño y simple. El núcleo consta de solo tres archivos implementados en C. Proporciona métodos para múltiples subprocesos o hilos, mutexes, semáforos y temporizadores de software. Además, admite prioridades de hilos y tiene un modo tickless para reducir el consumo energético. En FreeRTOS, las aplicaciones pueden asignarse de manera completamente estática.<br  />
+</li>
+</ul>
+<p>En resumen, FreeRTOS es una opción poderosa y flexible para el desarrollo de aplicaciones de tiempo real en microcontroladores y microprocesadores, proporcionando una amplia gama de características y ventajas para optimizar el rendimiento y la eficiencia del sistema.</p>
+<ul>
+<li><a class="el" href="doc.html">Documentacion</a></li>
+<li><a class="el" href="filter.html">Filtros</a></li>
+<li><a class="el" href="_m_q_t_t.html">Lenguaje MQTT</a> </li>
+</ul>
+</div></div><!-- contents -->
+</div><!-- PageDoc -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="footer">Generado por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+  </ul>
+</div>
+</body>
+</html>

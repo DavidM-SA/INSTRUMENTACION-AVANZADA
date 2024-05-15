@@ -5,7 +5,7 @@
  * @version 0.1
  * @date 2024-04-04
  * @see fir_filter.h fir_filter.cpp
- * @note Esto es una prueba de la Práctica 1 de **Instrumentación Avanzada**.
+ * @note Práctica 1 de **Instrumentación Avanzada**.
  * @attention El programa esta pensado para correr en un ESP-32.
  * @warning Para conectarse a la red debe rellenar bien los datos de MQTT-Client o no podra conectarse a internet y darse de alta en el topic.
  *
@@ -66,9 +66,7 @@ EspMQTTClient client(
 );
 
 
-/// @brief otra forma de poner un brief. Esto es el Setup
-///
-/// esto es un *comentario* mas detallado del **Setup**
+/// @brief esto es un *comentario* mas detallado del **Setup**
 /// ### Example
 //! void setup() // Setup declaration \n
 //!{ \n

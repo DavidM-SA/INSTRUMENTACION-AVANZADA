@@ -1,0 +1,341 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.10.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Practica 1 Filtro Digital y Comunicación MQTT: Archivo de código fuente E:/Repositorios/Github/INSTRUMENTACION-AVANZADA/IOT/src/main.cpp</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+  $(function() { init_search(); });
+/* @license-end */
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="Logo (Teléfono) (Personalizado).jpg"/></td>
+  <td id="projectalign">
+   <div id="projectname">Practica 1 Filtro Digital y Comunicación MQTT<span id="projectnumber">&#160;BETA</span>
+   </div>
+   <div id="projectbrief">Practica en la que se filtra una señal y mediante la comunicacion MQTT enviamos a un broker el valor maximo, minimo y la media</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect"                onmouseover="return searchBox.OnSearchSelectShow()"                onmouseout="return searchBox.OnSearchSelectHide()">&#160;</span>
+          <input type="text" id="MSearchField" value="" placeholder="Buscar" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.svg" alt=""/></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.10.0 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){initNavTree('main_8cpp_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Cargando...</div>
+<div class="SRStatus" id="Searching">Buscando...</div>
+<div class="SRStatus" id="NoMatches">Nada coincide</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">main.cpp</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="main_8cpp.html">Ir a la documentación de este archivo.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span> </div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &lt;Arduino.h&gt;</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#include &quot;esp_freertos_hooks.h&quot;</span></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="preprocessor">#include &quot;<a class="code" href="fir__filter_8h.html">fir_filter.h</a>&quot;</span></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="preprocessor">#include &quot;driver/adc.h&quot;</span></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="preprocessor">#include &quot;esp_adc_cal.h&quot;</span></div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="preprocessor">#include &quot;EspMQTTClient.h&quot;</span></div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="comment">// Cabeceras funciones</span></div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="keywordtype">void</span> <a class="code hl_function" href="main_8cpp.html#a37d7917fb0fdbe1e566f483e0c4be983">signalCode</a>(<span class="keywordtype">void</span> *pvParameters);</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="keywordtype">void</span> <a class="code hl_function" href="main_8cpp.html#a5c894d6bd033b37dc72a6c0e611cbec9">filterCode</a>(<span class="keywordtype">void</span> *pvParameters);</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="keywordtype">void</span> <a class="code hl_function" href="main_8cpp.html#acb1e1a92ca5ea5cdb0589137717dc023">Signal_Values_Code</a>(<span class="keywordtype">void</span> *pvParameters);</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="comment">// variables:</span></div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno"><a class="line" href="main_8cpp.html#aac6a14304a29007ab9799c9c3c66045b">   28</a></span><a class="code hl_struct" href="struct_sample_filter.html">SampleFilter</a> <a class="code hl_variable" href="main_8cpp.html#aac6a14304a29007ab9799c9c3c66045b">filterFIR</a>;</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno"><a class="line" href="main_8cpp.html#a99848472e0fd508086987c6465bd26de">   29</a></span>uint32_t <a class="code hl_variable" href="main_8cpp.html#a99848472e0fd508086987c6465bd26de">senal</a>;</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno"><a class="line" href="main_8cpp.html#aa1b52d3420b70e48d50785f445d4f520">   30</a></span><span class="keywordtype">int</span> <a class="code hl_variable" href="main_8cpp.html#aa1b52d3420b70e48d50785f445d4f520">repet</a> = 0;</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="main_8cpp.html#aeadc8317fabd2f0f917a64887a2ba183">   31</a></span><span class="keywordtype">float</span>  <a class="code hl_variable" href="main_8cpp.html#aeadc8317fabd2f0f917a64887a2ba183">averaje</a>, <a class="code hl_variable" href="main_8cpp.html#afb87c62011f7b5c27594667f97585199">maxim</a>, <a class="code hl_variable" href="main_8cpp.html#a3fa3b7a1bf5d989eb22566a75e45bb6a">minimim</a>=4500;</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="comment">// handle de las colas</span></div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno"><a class="line" href="main_8cpp.html#ae0c330d12a0e08fdf87ef2717291a75e">   34</a></span>QueueHandle_t <a class="code hl_variable" href="main_8cpp.html#ae0c330d12a0e08fdf87ef2717291a75e">colaSignal</a>;</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno"><a class="line" href="main_8cpp.html#ade1276909439a125a048f47ff8feb631">   35</a></span>QueueHandle_t <a class="code hl_variable" href="main_8cpp.html#ade1276909439a125a048f47ff8feb631">colaFiltro</a>;</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="comment">// Conversor analogico digital</span></div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno"><a class="line" href="main_8cpp.html#a193eb40d27ec21d0fc054dd5f42903ed">   38</a></span>esp_adc_cal_characteristics_t <a class="code hl_variable" href="main_8cpp.html#a193eb40d27ec21d0fc054dd5f42903ed">adc_chars</a>;</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno"><a class="line" href="main_8cpp.html#ad4eb98e1329f09c84b11215e24395e58">   39</a></span>esp_adc_cal_value_t <a class="code hl_variable" href="main_8cpp.html#ad4eb98e1329f09c84b11215e24395e58">val_type</a>;</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><span class="comment">// handle tareas</span></div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno"><a class="line" href="main_8cpp.html#acfd8918844b9425b91b1ee8b7318f83e">   42</a></span>TaskHandle_t <a class="code hl_variable" href="main_8cpp.html#acfd8918844b9425b91b1ee8b7318f83e">analog</a>;</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno"><a class="line" href="main_8cpp.html#a4b4abc490769d3b56faa5f08f0c5ed67">   43</a></span>TaskHandle_t <a class="code hl_variable" href="main_8cpp.html#a4b4abc490769d3b56faa5f08f0c5ed67">filter</a>;</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno"><a class="line" href="main_8cpp.html#aabbbeebe129ebdee8b29763b47689b70">   44</a></span>TaskHandle_t <a class="code hl_variable" href="main_8cpp.html#aabbbeebe129ebdee8b29763b47689b70">data_obtain</a>;</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span><span class="comment">// mqtt</span></div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span><span class="keywordtype">void</span> <a class="code hl_function" href="main_8cpp.html#a17d35c35a2688e6a12e1d76d4353ba1f">Imprimir</a>(<span class="keyword">const</span> String &amp;payload);</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno"><a class="line" href="main_8cpp.html#a76f1e6bccf6e83227b467abf53ebcfaf">   58</a></span>EspMQTTClient <a class="code hl_function" href="main_8cpp.html#a76f1e6bccf6e83227b467abf53ebcfaf">client</a>(</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    <span class="stringliteral">&quot;Mallware&quot;</span>,           <span class="comment">// Network name</span></div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    <span class="stringliteral">&quot;TuPutaMadre1993&quot;</span>,    <span class="comment">// Network password</span></div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    <span class="stringliteral">&quot;mqtt-dashboard.com&quot;</span>, <span class="comment">// MQTT Broker server ip</span></div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    <span class="stringliteral">&quot;MQTTUsername&quot;</span>,       <span class="comment">// Can be omitted if not needed</span></div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    <span class="stringliteral">&quot;MQTTPassword&quot;</span>,       <span class="comment">// Can be omitted if not needed</span></div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    <span class="stringliteral">&quot;alumno&quot;</span>,</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    1883 <span class="comment">// Client name that uniquely identify your device</span></div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>);</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span> </div>
+<div class="foldopen" id="foldopen00075" data-start="{" data-end="}">
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno"><a class="line" href="main_8cpp.html#a4fc01d736fe50cf5b977f755b675f11d">   75</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="main_8cpp.html#a4fc01d736fe50cf5b977f755b675f11d">setup</a>()</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>{</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>  Serial.begin(921600);</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span> </div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>  <span class="comment">// inicializar adc</span></div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>  <a class="code hl_variable" href="main_8cpp.html#ad4eb98e1329f09c84b11215e24395e58">val_type</a> = esp_adc_cal_characterize(ADC_UNIT_1, ADC_ATTEN_DB_11, ADC_WIDTH_BIT_12, 3300, &amp;<a class="code hl_variable" href="main_8cpp.html#a193eb40d27ec21d0fc054dd5f42903ed">adc_chars</a>);</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span> </div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>  <span class="comment">// inicializamos filtro</span></div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>  <a class="code hl_function" href="fir__filter_8h.html#a33b4eb17bc710374abedff1999c46bc8">SampleFilter_init</a>(&amp;<a class="code hl_variable" href="main_8cpp.html#aac6a14304a29007ab9799c9c3c66045b">filterFIR</a>);</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span> </div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>  <span class="comment">// crear colas</span></div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>  <a class="code hl_variable" href="main_8cpp.html#ae0c330d12a0e08fdf87ef2717291a75e">colaSignal</a> = xQueueCreate(10, <span class="keyword">sizeof</span>(uint32_t));</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>  <a class="code hl_variable" href="main_8cpp.html#ade1276909439a125a048f47ff8feb631">colaFiltro</a> = xQueueCreate(10, <span class="keyword">sizeof</span>(uint32_t));</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span> </div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>  <span class="comment">// crear tareas</span></div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>  xTaskCreatePinnedToCore(</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>      <a class="code hl_function" href="main_8cpp.html#a37d7917fb0fdbe1e566f483e0c4be983">signalCode</a>, <span class="comment">/* Task function. */</span></div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>      <span class="stringliteral">&quot;senal&quot;</span>,   <span class="comment">/* name of task. */</span></div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>      10000,      <span class="comment">/* Stack size of task */</span></div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>      NULL,       <span class="comment">/* parameter of the task */</span></div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>      3,          <span class="comment">/* priority of the task */</span></div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>      &amp;<a class="code hl_variable" href="main_8cpp.html#acfd8918844b9425b91b1ee8b7318f83e">analog</a>,    <span class="comment">/* Task handle to keep track of created task */</span></div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>      1);         <span class="comment">/* pin task to core 1 */</span></div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span> </div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>  xTaskCreatePinnedToCore(</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>      <a class="code hl_function" href="main_8cpp.html#a5c894d6bd033b37dc72a6c0e611cbec9">filterCode</a>, <span class="comment">/* Task function. */</span></div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>      <span class="stringliteral">&quot;filter&quot;</span>,   <span class="comment">/* name of task. */</span></div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>      10000,      <span class="comment">/* Stack size of task */</span></div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>      NULL,       <span class="comment">/* parameter of the task */</span></div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>      2,          <span class="comment">/* priority of the task */</span></div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>      &amp;<a class="code hl_variable" href="main_8cpp.html#a4b4abc490769d3b56faa5f08f0c5ed67">filter</a>,    <span class="comment">/* Task handle to keep track of created task */</span></div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>      0);         <span class="comment">/* pin task to core 0 */</span></div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span> </div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>  xTaskCreatePinnedToCore(</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>      <a class="code hl_function" href="main_8cpp.html#acb1e1a92ca5ea5cdb0589137717dc023">Signal_Values_Code</a>, <span class="comment">/* Task function. */</span></div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>      <span class="stringliteral">&quot;Average&quot;</span>,          <span class="comment">/* name of task. */</span></div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>      10000,              <span class="comment">/* Stack size of task */</span></div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>      NULL,               <span class="comment">/* parameter of the task */</span></div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>      2,                  <span class="comment">/* priority of the task */</span></div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>      &amp;<a class="code hl_variable" href="main_8cpp.html#aabbbeebe129ebdee8b29763b47689b70">data_obtain</a>,       <span class="comment">/* Task handle to keep track of created task */</span></div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>      1);                 <span class="comment">/* pin task to core 1 */</span></div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>}</div>
+</div>
+<div class="foldopen" id="foldopen00121" data-start="{" data-end="}">
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno"><a class="line" href="main_8cpp.html#ad71088bd5c9a7520f423e9a1ea078444">  121</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="main_8cpp.html#ad71088bd5c9a7520f423e9a1ea078444">onConnectionEstablished</a>()</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>{</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>  <span class="comment">// Dos formas de darse de alta en un topic.</span></div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>  <a class="code hl_function" href="main_8cpp.html#a76f1e6bccf6e83227b467abf53ebcfaf">client</a>.subscribe(<span class="stringliteral">&quot;Eupla806131&quot;</span>, [](<span class="keyword">const</span> String &amp;payload)</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>                   { Serial.println(payload); });</div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>  <a class="code hl_function" href="main_8cpp.html#a76f1e6bccf6e83227b467abf53ebcfaf">client</a>.subscribe(<span class="stringliteral">&quot;Eupla806131/filtros/&quot;</span>, <a class="code hl_function" href="main_8cpp.html#a17d35c35a2688e6a12e1d76d4353ba1f">Imprimir</a>);</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>}</div>
+</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span> </div>
+<div class="foldopen" id="foldopen00133" data-start="{" data-end="}">
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno"><a class="line" href="main_8cpp.html#afe461d27b9c48d5921c00d521181f12f">  133</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="main_8cpp.html#afe461d27b9c48d5921c00d521181f12f">loop</a>()</div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>{</div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>  <a class="code hl_function" href="main_8cpp.html#a76f1e6bccf6e83227b467abf53ebcfaf">client</a>.loop();</div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>}</div>
+</div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span> </div>
+<div class="foldopen" id="foldopen00143" data-start="{" data-end="}">
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno"><a class="line" href="main_8cpp.html#a37d7917fb0fdbe1e566f483e0c4be983">  143</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="main_8cpp.html#a37d7917fb0fdbe1e566f483e0c4be983">signalCode</a>(<span class="keywordtype">void</span> *pvParameters)</div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>{</div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>  <span class="keywordflow">for</span> (;;)</div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>  {</div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>    <span class="comment">// leemos datos conversor analogico</span></div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>    uint32_t reading = adc1_get_raw(ADC1_CHANNEL_7);</div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>    <span class="keywordtype">int</span> voltaje = esp_adc_cal_raw_to_voltage(4095 - reading, &amp;<a class="code hl_variable" href="main_8cpp.html#a193eb40d27ec21d0fc054dd5f42903ed">adc_chars</a>);</div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span> </div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>    <span class="comment">// mandamos dato a la cola</span></div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>    <span class="keywordflow">if</span> (xQueueGenericSend(<a class="code hl_variable" href="main_8cpp.html#ae0c330d12a0e08fdf87ef2717291a75e">colaSignal</a>, (<span class="keywordtype">void</span> *)&amp;voltaje, (TickType_t)10, queueSEND_TO_BACK) != pdPASS)</div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>    {</div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>      Serial.println(<span class="stringliteral">&quot;No se ha podido enviar el dato sin filtrar a la cola&quot;</span>);</div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>    }</div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>    <span class="comment">//asegurarse que se lean los datos a 1Mhz</span></div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>    vTaskDelay(1);</div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>  }</div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>}</div>
+</div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span> </div>
+<div class="foldopen" id="foldopen00166" data-start="{" data-end="}">
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno"><a class="line" href="main_8cpp.html#a5c894d6bd033b37dc72a6c0e611cbec9">  166</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="main_8cpp.html#a5c894d6bd033b37dc72a6c0e611cbec9">filterCode</a>(<span class="keywordtype">void</span> *pvParameters)</div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>{</div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>  <span class="keywordflow">for</span> (;;)</div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>  {</div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>    <span class="keywordtype">int</span> signalR;</div>
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>    <span class="keywordflow">if</span> (xQueueReceive(<a class="code hl_variable" href="main_8cpp.html#ae0c330d12a0e08fdf87ef2717291a75e">colaSignal</a>, &amp;(signalR), (TickType_t)8) != pdTRUE)</div>
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>    {</div>
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>      Serial.println(<span class="stringliteral">&quot;No se ha podido recibir el dato de la cola&quot;</span>);</div>
+<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>    }</div>
+<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span> </div>
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>    <a class="code hl_function" href="fir__filter_8h.html#aec72e44cb2eb67dcc2ac6b8f3368f2fe">SampleFilter_put</a>(&amp;<a class="code hl_variable" href="main_8cpp.html#aac6a14304a29007ab9799c9c3c66045b">filterFIR</a>, signalR);</div>
+<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>    <span class="keywordtype">float</span> filtro = <a class="code hl_function" href="fir__filter_8h.html#a2ce1faceddc3ef56e9ea3ec0f666e29d">SampleFilter_get</a>(&amp;<a class="code hl_variable" href="main_8cpp.html#aac6a14304a29007ab9799c9c3c66045b">filterFIR</a>)/1000;</div>
+<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span> </div>
+<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span>    <span class="keywordflow">if</span> (xQueueGenericSend(<a class="code hl_variable" href="main_8cpp.html#ade1276909439a125a048f47ff8feb631">colaFiltro</a>, (<span class="keywordtype">void</span> *)&amp;filtro, (TickType_t)10, queueSEND_TO_BACK) != pdPASS)</div>
+<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span>    {</div>
+<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span>      Serial.println(<span class="stringliteral">&quot;No se ha podido enviar el dato filtrado a la cola&quot;</span>);</div>
+<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span>    }</div>
+<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span>  }</div>
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span>}</div>
+</div>
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span> </div>
+<div class="foldopen" id="foldopen00191" data-start="{" data-end="}">
+<div class="line"><a id="l00191" name="l00191"></a><span class="lineno"><a class="line" href="main_8cpp.html#acb1e1a92ca5ea5cdb0589137717dc023">  191</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="main_8cpp.html#acb1e1a92ca5ea5cdb0589137717dc023">Signal_Values_Code</a>(<span class="keywordtype">void</span> *pvParameters)</div>
+<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>{</div>
+<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>  <span class="keywordflow">for</span> (;;)</div>
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span>  {</div>
+<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span>    <span class="keywordtype">float</span> value;</div>
+<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span>    <span class="keywordflow">if</span> (xQueueReceive(<a class="code hl_variable" href="main_8cpp.html#ade1276909439a125a048f47ff8feb631">colaFiltro</a>, &amp;(value), (TickType_t)8) != pdTRUE)</div>
+<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span>    {</div>
+<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span>      Serial.println(<span class="stringliteral">&quot;No se ha podido recibir para media&quot;</span>);</div>
+<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span>    }</div>
+<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span>    <span class="keywordflow">else</span></div>
+<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>    {</div>
+<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span>      <span class="comment">// Sacamos la media</span></div>
+<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span>      <a class="code hl_variable" href="main_8cpp.html#aeadc8317fabd2f0f917a64887a2ba183">averaje</a> = <a class="code hl_variable" href="main_8cpp.html#aeadc8317fabd2f0f917a64887a2ba183">averaje</a> + value;</div>
+<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span> </div>
+<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span>      <span class="comment">// sacamos el maximo</span></div>
+<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span>      <span class="keywordflow">if</span> (value &gt; <a class="code hl_variable" href="main_8cpp.html#afb87c62011f7b5c27594667f97585199">maxim</a>)</div>
+<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span>      {</div>
+<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span>        <a class="code hl_variable" href="main_8cpp.html#afb87c62011f7b5c27594667f97585199">maxim</a> = value;</div>
+<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span>      }</div>
+<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span>      </div>
+<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span>      <span class="comment">// sacamos el minimo</span></div>
+<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span>      <span class="keywordflow">if</span> (value &lt; <a class="code hl_variable" href="main_8cpp.html#a3fa3b7a1bf5d989eb22566a75e45bb6a">minimim</a>)</div>
+<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span>      {</div>
+<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span>        <a class="code hl_variable" href="main_8cpp.html#a3fa3b7a1bf5d989eb22566a75e45bb6a">minimim</a> = value;</div>
+<div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span>      }</div>
+<div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span>      <a class="code hl_variable" href="main_8cpp.html#aa1b52d3420b70e48d50785f445d4f520">repet</a>++;</div>
+<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span>      <span class="keywordflow">if</span> (<a class="code hl_variable" href="main_8cpp.html#aa1b52d3420b70e48d50785f445d4f520">repet</a> &gt; 1000)</div>
+<div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span>      {</div>
+<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span>        <span class="keywordflow">if</span> (<a class="code hl_function" href="main_8cpp.html#a76f1e6bccf6e83227b467abf53ebcfaf">client</a>.isMqttConnected())</div>
+<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span>        {</div>
+<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span>          <a class="code hl_function" href="main_8cpp.html#a76f1e6bccf6e83227b467abf53ebcfaf">client</a>.publish(<span class="stringliteral">&quot;Eupla806131/filtros/media&quot;</span>, String(<a class="code hl_variable" href="main_8cpp.html#aeadc8317fabd2f0f917a64887a2ba183">averaje</a> / (1000)));</div>
+<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span>          <a class="code hl_function" href="main_8cpp.html#a76f1e6bccf6e83227b467abf53ebcfaf">client</a>.publish(<span class="stringliteral">&quot;Eupla806131/filtros/max&quot;</span>, String(<a class="code hl_variable" href="main_8cpp.html#afb87c62011f7b5c27594667f97585199">maxim</a>));</div>
+<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span>          <a class="code hl_function" href="main_8cpp.html#a76f1e6bccf6e83227b467abf53ebcfaf">client</a>.publish(<span class="stringliteral">&quot;Eupla806131/filtros/min&quot;</span>, String(<a class="code hl_variable" href="main_8cpp.html#a3fa3b7a1bf5d989eb22566a75e45bb6a">minimim</a>));</div>
+<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span>        }</div>
+<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span>        <a class="code hl_variable" href="main_8cpp.html#aa1b52d3420b70e48d50785f445d4f520">repet</a> = 0;</div>
+<div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span>        <a class="code hl_variable" href="main_8cpp.html#aeadc8317fabd2f0f917a64887a2ba183">averaje</a> = 0;</div>
+<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span>        <a class="code hl_variable" href="main_8cpp.html#afb87c62011f7b5c27594667f97585199">maxim</a> = 0;</div>
+<div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span>        <a class="code hl_variable" href="main_8cpp.html#a3fa3b7a1bf5d989eb22566a75e45bb6a">minimim</a> = 4500;</div>
+<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span>      }</div>
+<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span>    }</div>
+<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span>  }</div>
+<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span>}</div>
+</div>
+<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span> </div>
+<div class="foldopen" id="foldopen00239" data-start="{" data-end="}">
+<div class="line"><a id="l00239" name="l00239"></a><span class="lineno"><a class="line" href="main_8cpp.html#a17d35c35a2688e6a12e1d76d4353ba1f">  239</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="main_8cpp.html#a17d35c35a2688e6a12e1d76d4353ba1f">Imprimir</a>(<span class="keyword">const</span> String &amp;payload)</div>
+<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span>{</div>
+<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span>  Serial.println(payload);</div>
+<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span>}</div>
+</div>
+<div class="ttc" id="afir__filter_8h_html"><div class="ttname"><a href="fir__filter_8h.html">fir_filter.h</a></div></div>
+<div class="ttc" id="afir__filter_8h_html_a2ce1faceddc3ef56e9ea3ec0f666e29d"><div class="ttname"><a href="fir__filter_8h.html#a2ce1faceddc3ef56e9ea3ec0f666e29d">SampleFilter_get</a></div><div class="ttdeci">double SampleFilter_get(SampleFilter *f)</div><div class="ttdoc">SampleFilter_put Devuelve la variable filtrada.</div><div class="ttdef"><b>Definition</b> <a href="fir__filter_8cpp_source.html#l00119">fir_filter.cpp:119</a></div></div>
+<div class="ttc" id="afir__filter_8h_html_a33b4eb17bc710374abedff1999c46bc8"><div class="ttname"><a href="fir__filter_8h.html#a33b4eb17bc710374abedff1999c46bc8">SampleFilter_init</a></div><div class="ttdeci">void SampleFilter_init(SampleFilter *f)</div><div class="ttdoc">SampleFilter_init inicializa el Filtro figital.</div><div class="ttdef"><b>Definition</b> <a href="fir__filter_8cpp_source.html#l00096">fir_filter.cpp:96</a></div></div>
+<div class="ttc" id="afir__filter_8h_html_aec72e44cb2eb67dcc2ac6b8f3368f2fe"><div class="ttname"><a href="fir__filter_8h.html#aec72e44cb2eb67dcc2ac6b8f3368f2fe">SampleFilter_put</a></div><div class="ttdeci">void SampleFilter_put(SampleFilter *f, double input)</div><div class="ttdoc">SampleFilter_put pasamos a la funcion la variable a filtrar.</div><div class="ttdef"><b>Definition</b> <a href="fir__filter_8cpp_source.html#l00108">fir_filter.cpp:108</a></div></div>
+<div class="ttc" id="amain_8cpp_html_a17d35c35a2688e6a12e1d76d4353ba1f"><div class="ttname"><a href="main_8cpp.html#a17d35c35a2688e6a12e1d76d4353ba1f">Imprimir</a></div><div class="ttdeci">void Imprimir(const String &amp;payload)</div><div class="ttdoc">Otra forma de poner la matriz usada para darse de alta en un Topic.</div><div class="ttdef"><b>Definition</b> <a href="#l00239">main.cpp:239</a></div></div>
+<div class="ttc" id="amain_8cpp_html_a193eb40d27ec21d0fc054dd5f42903ed"><div class="ttname"><a href="main_8cpp.html#a193eb40d27ec21d0fc054dd5f42903ed">adc_chars</a></div><div class="ttdeci">esp_adc_cal_characteristics_t adc_chars</div><div class="ttdef"><b>Definition</b> <a href="#l00038">main.cpp:38</a></div></div>
+<div class="ttc" id="amain_8cpp_html_a37d7917fb0fdbe1e566f483e0c4be983"><div class="ttname"><a href="main_8cpp.html#a37d7917fb0fdbe1e566f483e0c4be983">signalCode</a></div><div class="ttdeci">void signalCode(void *pvParameters)</div><div class="ttdoc">Tarea para leer el dato con el conversor analogico digital.</div><div class="ttdef"><b>Definition</b> <a href="#l00143">main.cpp:143</a></div></div>
+<div class="ttc" id="amain_8cpp_html_a3fa3b7a1bf5d989eb22566a75e45bb6a"><div class="ttname"><a href="main_8cpp.html#a3fa3b7a1bf5d989eb22566a75e45bb6a">minimim</a></div><div class="ttdeci">float minimim</div><div class="ttdef"><b>Definition</b> <a href="#l00031">main.cpp:31</a></div></div>
+<div class="ttc" id="amain_8cpp_html_a4b4abc490769d3b56faa5f08f0c5ed67"><div class="ttname"><a href="main_8cpp.html#a4b4abc490769d3b56faa5f08f0c5ed67">filter</a></div><div class="ttdeci">TaskHandle_t filter</div><div class="ttdef"><b>Definition</b> <a href="#l00043">main.cpp:43</a></div></div>
+<div class="ttc" id="amain_8cpp_html_a4fc01d736fe50cf5b977f755b675f11d"><div class="ttname"><a href="main_8cpp.html#a4fc01d736fe50cf5b977f755b675f11d">setup</a></div><div class="ttdeci">void setup()</div><div class="ttdoc">esto es un comentario mas detallado del Setup</div><div class="ttdef"><b>Definition</b> <a href="#l00075">main.cpp:75</a></div></div>
+<div class="ttc" id="amain_8cpp_html_a5c894d6bd033b37dc72a6c0e611cbec9"><div class="ttname"><a href="main_8cpp.html#a5c894d6bd033b37dc72a6c0e611cbec9">filterCode</a></div><div class="ttdeci">void filterCode(void *pvParameters)</div><div class="ttdoc">Tarea para filtrar el dato obtenida con el conversor analogico digital.</div><div class="ttdef"><b>Definition</b> <a href="#l00166">main.cpp:166</a></div></div>
+<div class="ttc" id="amain_8cpp_html_a76f1e6bccf6e83227b467abf53ebcfaf"><div class="ttname"><a href="main_8cpp.html#a76f1e6bccf6e83227b467abf53ebcfaf">client</a></div><div class="ttdeci">EspMQTTClient client(&quot;Mallware&quot;, &quot;TuPutaMadre1993&quot;, &quot;mqtt-dashboard.com&quot;, &quot;MQTTUsername&quot;, &quot;MQTTPassword&quot;, &quot;alumno&quot;, 1883)</div><div class="ttdoc">Datos de la red y del Broker para la conexion MQTT.</div></div>
+<div class="ttc" id="amain_8cpp_html_a99848472e0fd508086987c6465bd26de"><div class="ttname"><a href="main_8cpp.html#a99848472e0fd508086987c6465bd26de">senal</a></div><div class="ttdeci">uint32_t senal</div><div class="ttdef"><b>Definition</b> <a href="#l00029">main.cpp:29</a></div></div>
+<div class="ttc" id="amain_8cpp_html_aa1b52d3420b70e48d50785f445d4f520"><div class="ttname"><a href="main_8cpp.html#aa1b52d3420b70e48d50785f445d4f520">repet</a></div><div class="ttdeci">int repet</div><div class="ttdef"><b>Definition</b> <a href="#l00030">main.cpp:30</a></div></div>
+<div class="ttc" id="amain_8cpp_html_aabbbeebe129ebdee8b29763b47689b70"><div class="ttname"><a href="main_8cpp.html#aabbbeebe129ebdee8b29763b47689b70">data_obtain</a></div><div class="ttdeci">TaskHandle_t data_obtain</div><div class="ttdef"><b>Definition</b> <a href="#l00044">main.cpp:44</a></div></div>
+<div class="ttc" id="amain_8cpp_html_aac6a14304a29007ab9799c9c3c66045b"><div class="ttname"><a href="main_8cpp.html#aac6a14304a29007ab9799c9c3c66045b">filterFIR</a></div><div class="ttdeci">SampleFilter filterFIR</div><div class="ttdef"><b>Definition</b> <a href="#l00028">main.cpp:28</a></div></div>
+<div class="ttc" id="amain_8cpp_html_acb1e1a92ca5ea5cdb0589137717dc023"><div class="ttname"><a href="main_8cpp.html#acb1e1a92ca5ea5cdb0589137717dc023">Signal_Values_Code</a></div><div class="ttdeci">void Signal_Values_Code(void *pvParameters)</div><div class="ttdoc">Tarea para sacar el valor medio de la señal.</div><div class="ttdef"><b>Definition</b> <a href="#l00191">main.cpp:191</a></div></div>
+<div class="ttc" id="amain_8cpp_html_acfd8918844b9425b91b1ee8b7318f83e"><div class="ttname"><a href="main_8cpp.html#acfd8918844b9425b91b1ee8b7318f83e">analog</a></div><div class="ttdeci">TaskHandle_t analog</div><div class="ttdef"><b>Definition</b> <a href="#l00042">main.cpp:42</a></div></div>
+<div class="ttc" id="amain_8cpp_html_ad4eb98e1329f09c84b11215e24395e58"><div class="ttname"><a href="main_8cpp.html#ad4eb98e1329f09c84b11215e24395e58">val_type</a></div><div class="ttdeci">esp_adc_cal_value_t val_type</div><div class="ttdef"><b>Definition</b> <a href="#l00039">main.cpp:39</a></div></div>
+<div class="ttc" id="amain_8cpp_html_ad71088bd5c9a7520f423e9a1ea078444"><div class="ttname"><a href="main_8cpp.html#ad71088bd5c9a7520f423e9a1ea078444">onConnectionEstablished</a></div><div class="ttdeci">void onConnectionEstablished()</div><div class="ttdoc">funcion para darnos de alta en los topics cuando la conexion este establecida.</div><div class="ttdef"><b>Definition</b> <a href="#l00121">main.cpp:121</a></div></div>
+<div class="ttc" id="amain_8cpp_html_ade1276909439a125a048f47ff8feb631"><div class="ttname"><a href="main_8cpp.html#ade1276909439a125a048f47ff8feb631">colaFiltro</a></div><div class="ttdeci">QueueHandle_t colaFiltro</div><div class="ttdef"><b>Definition</b> <a href="#l00035">main.cpp:35</a></div></div>
+<div class="ttc" id="amain_8cpp_html_ae0c330d12a0e08fdf87ef2717291a75e"><div class="ttname"><a href="main_8cpp.html#ae0c330d12a0e08fdf87ef2717291a75e">colaSignal</a></div><div class="ttdeci">QueueHandle_t colaSignal</div><div class="ttdef"><b>Definition</b> <a href="#l00034">main.cpp:34</a></div></div>
+<div class="ttc" id="amain_8cpp_html_aeadc8317fabd2f0f917a64887a2ba183"><div class="ttname"><a href="main_8cpp.html#aeadc8317fabd2f0f917a64887a2ba183">averaje</a></div><div class="ttdeci">float averaje</div><div class="ttdef"><b>Definition</b> <a href="#l00031">main.cpp:31</a></div></div>
+<div class="ttc" id="amain_8cpp_html_afb87c62011f7b5c27594667f97585199"><div class="ttname"><a href="main_8cpp.html#afb87c62011f7b5c27594667f97585199">maxim</a></div><div class="ttdeci">float maxim</div><div class="ttdef"><b>Definition</b> <a href="#l00031">main.cpp:31</a></div></div>
+<div class="ttc" id="amain_8cpp_html_afe461d27b9c48d5921c00d521181f12f"><div class="ttname"><a href="main_8cpp.html#afe461d27b9c48d5921c00d521181f12f">loop</a></div><div class="ttdeci">void loop()</div><div class="ttdoc">Ejecutamos client.loop() a fondo perdido para no perder la conexion con el Broker.</div><div class="ttdef"><b>Definition</b> <a href="#l00133">main.cpp:133</a></div></div>
+<div class="ttc" id="astruct_sample_filter_html"><div class="ttname"><a href="struct_sample_filter.html">SampleFilter</a></div><div class="ttdoc">Estructura creada para ejecutar el filtro.</div><div class="ttdef"><b>Definition</b> <a href="fir__filter_8h_source.html#l00046">fir_filter.h:47</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_69161428018e52ad84691a5947f27cc9.html">Github</a></li><li class="navelem"><a class="el" href="dir_6f04dc7973f1f0e29bc8f862f5d8a1d2.html">INSTRUMENTACION-AVANZADA</a></li><li class="navelem"><a class="el" href="dir_9b1151927fe191a2daf13f8e94a10eae.html">IOT</a></li><li class="navelem"><a class="el" href="dir_58ff454feb99f73e72a8b5fcd62b72b7.html">src</a></li><li class="navelem"><a class="el" href="main_8cpp.html">main.cpp</a></li>
+    <li class="footer">Generado por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+  </ul>
+</div>
+</body>
+</html>

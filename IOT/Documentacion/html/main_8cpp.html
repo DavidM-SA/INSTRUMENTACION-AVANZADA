@@ -1,0 +1,635 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.10.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Practica 1 Filtro Digital y Comunicación MQTT: Referencia del archivo E:/Repositorios/Github/INSTRUMENTACION-AVANZADA/IOT/src/main.cpp</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+  $(function() { init_search(); });
+/* @license-end */
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="Logo (Teléfono) (Personalizado).jpg"/></td>
+  <td id="projectalign">
+   <div id="projectname">Practica 1 Filtro Digital y Comunicación MQTT<span id="projectnumber">&#160;BETA</span>
+   </div>
+   <div id="projectbrief">Practica en la que se filtra una señal y mediante la comunicacion MQTT enviamos a un broker el valor maximo, minimo y la media</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect"                onmouseover="return searchBox.OnSearchSelectShow()"                onmouseout="return searchBox.OnSearchSelectHide()">&#160;</span>
+          <input type="text" id="MSearchField" value="" placeholder="Buscar" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.svg" alt=""/></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.10.0 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){initNavTree('main_8cpp.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Cargando...</div>
+<div class="SRStatus" id="Searching">Buscando...</div>
+<div class="SRStatus" id="NoMatches">Nada coincide</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#func-members">Funciones</a> &#124;
+<a href="#var-members">Variables</a>  </div>
+  <div class="headertitle"><div class="title">Referencia del archivo main.cpp</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>main con tareas y colas creadas  
+<a href="#details">Más...</a></p>
+<div class="textblock"><code>#include &lt;Arduino.h&gt;</code><br />
+<code>#include &quot;esp_freertos_hooks.h&quot;</code><br />
+<code>#include &quot;<a class="el" href="fir__filter_8h_source.html">fir_filter.h</a>&quot;</code><br />
+<code>#include &quot;driver/adc.h&quot;</code><br />
+<code>#include &quot;esp_adc_cal.h&quot;</code><br />
+<code>#include &quot;EspMQTTClient.h&quot;</code><br />
+</div>
+<p><a href="main_8cpp_source.html">Ir al código fuente de este archivo.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+Funciones</h2></td></tr>
+<tr class="memitem:a37d7917fb0fdbe1e566f483e0c4be983" id="r_a37d7917fb0fdbe1e566f483e0c4be983"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a37d7917fb0fdbe1e566f483e0c4be983">signalCode</a> (void *pvParameters)</td></tr>
+<tr class="memdesc:a37d7917fb0fdbe1e566f483e0c4be983"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tarea para leer el dato con el conversor analogico digital.  <br /></td></tr>
+<tr class="separator:a37d7917fb0fdbe1e566f483e0c4be983"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5c894d6bd033b37dc72a6c0e611cbec9" id="r_a5c894d6bd033b37dc72a6c0e611cbec9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5c894d6bd033b37dc72a6c0e611cbec9">filterCode</a> (void *pvParameters)</td></tr>
+<tr class="memdesc:a5c894d6bd033b37dc72a6c0e611cbec9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tarea para filtrar el dato obtenida con el conversor analogico digital.  <br /></td></tr>
+<tr class="separator:a5c894d6bd033b37dc72a6c0e611cbec9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acb1e1a92ca5ea5cdb0589137717dc023" id="r_acb1e1a92ca5ea5cdb0589137717dc023"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acb1e1a92ca5ea5cdb0589137717dc023">Signal_Values_Code</a> (void *pvParameters)</td></tr>
+<tr class="memdesc:acb1e1a92ca5ea5cdb0589137717dc023"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tarea para sacar el valor medio de la señal.  <br /></td></tr>
+<tr class="separator:acb1e1a92ca5ea5cdb0589137717dc023"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a17d35c35a2688e6a12e1d76d4353ba1f" id="r_a17d35c35a2688e6a12e1d76d4353ba1f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a17d35c35a2688e6a12e1d76d4353ba1f">Imprimir</a> (const String &amp;payload)</td></tr>
+<tr class="memdesc:a17d35c35a2688e6a12e1d76d4353ba1f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Otra forma de poner la matriz usada para darse de alta en un Topic.  <br /></td></tr>
+<tr class="separator:a17d35c35a2688e6a12e1d76d4353ba1f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a76f1e6bccf6e83227b467abf53ebcfaf" id="r_a76f1e6bccf6e83227b467abf53ebcfaf"><td class="memItemLeft" align="right" valign="top">EspMQTTClient&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a76f1e6bccf6e83227b467abf53ebcfaf">client</a> (&quot;Mallware&quot;, &quot;TuPutaMadre1993&quot;, &quot;mqtt-dashboard.com&quot;, &quot;MQTTUsername&quot;, &quot;MQTTPassword&quot;, &quot;alumno&quot;, 1883)</td></tr>
+<tr class="memdesc:a76f1e6bccf6e83227b467abf53ebcfaf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Datos de la red y del Broker para la conexion MQTT.  <br /></td></tr>
+<tr class="separator:a76f1e6bccf6e83227b467abf53ebcfaf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4fc01d736fe50cf5b977f755b675f11d" id="r_a4fc01d736fe50cf5b977f755b675f11d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4fc01d736fe50cf5b977f755b675f11d">setup</a> ()</td></tr>
+<tr class="memdesc:a4fc01d736fe50cf5b977f755b675f11d"><td class="mdescLeft">&#160;</td><td class="mdescRight">esto es un <em>comentario</em> mas detallado del <b>Setup</b>  <br /></td></tr>
+<tr class="separator:a4fc01d736fe50cf5b977f755b675f11d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad71088bd5c9a7520f423e9a1ea078444" id="r_ad71088bd5c9a7520f423e9a1ea078444"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad71088bd5c9a7520f423e9a1ea078444">onConnectionEstablished</a> ()</td></tr>
+<tr class="memdesc:ad71088bd5c9a7520f423e9a1ea078444"><td class="mdescLeft">&#160;</td><td class="mdescRight">funcion para darnos de alta en los topics cuando la conexion este establecida.  <br /></td></tr>
+<tr class="separator:ad71088bd5c9a7520f423e9a1ea078444"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afe461d27b9c48d5921c00d521181f12f" id="r_afe461d27b9c48d5921c00d521181f12f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afe461d27b9c48d5921c00d521181f12f">loop</a> ()</td></tr>
+<tr class="memdesc:afe461d27b9c48d5921c00d521181f12f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ejecutamos client.loop() a fondo perdido para no perder la conexion con el Broker.  <br /></td></tr>
+<tr class="separator:afe461d27b9c48d5921c00d521181f12f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:aac6a14304a29007ab9799c9c3c66045b" id="r_aac6a14304a29007ab9799c9c3c66045b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_sample_filter.html">SampleFilter</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aac6a14304a29007ab9799c9c3c66045b">filterFIR</a></td></tr>
+<tr class="separator:aac6a14304a29007ab9799c9c3c66045b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a99848472e0fd508086987c6465bd26de" id="r_a99848472e0fd508086987c6465bd26de"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a99848472e0fd508086987c6465bd26de">senal</a></td></tr>
+<tr class="separator:a99848472e0fd508086987c6465bd26de"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa1b52d3420b70e48d50785f445d4f520" id="r_aa1b52d3420b70e48d50785f445d4f520"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa1b52d3420b70e48d50785f445d4f520">repet</a> = 0</td></tr>
+<tr class="separator:aa1b52d3420b70e48d50785f445d4f520"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeadc8317fabd2f0f917a64887a2ba183" id="r_aeadc8317fabd2f0f917a64887a2ba183"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aeadc8317fabd2f0f917a64887a2ba183">averaje</a></td></tr>
+<tr class="separator:aeadc8317fabd2f0f917a64887a2ba183"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afb87c62011f7b5c27594667f97585199" id="r_afb87c62011f7b5c27594667f97585199"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afb87c62011f7b5c27594667f97585199">maxim</a></td></tr>
+<tr class="separator:afb87c62011f7b5c27594667f97585199"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3fa3b7a1bf5d989eb22566a75e45bb6a" id="r_a3fa3b7a1bf5d989eb22566a75e45bb6a"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3fa3b7a1bf5d989eb22566a75e45bb6a">minimim</a> =4500</td></tr>
+<tr class="separator:a3fa3b7a1bf5d989eb22566a75e45bb6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae0c330d12a0e08fdf87ef2717291a75e" id="r_ae0c330d12a0e08fdf87ef2717291a75e"><td class="memItemLeft" align="right" valign="top">QueueHandle_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae0c330d12a0e08fdf87ef2717291a75e">colaSignal</a></td></tr>
+<tr class="separator:ae0c330d12a0e08fdf87ef2717291a75e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ade1276909439a125a048f47ff8feb631" id="r_ade1276909439a125a048f47ff8feb631"><td class="memItemLeft" align="right" valign="top">QueueHandle_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ade1276909439a125a048f47ff8feb631">colaFiltro</a></td></tr>
+<tr class="separator:ade1276909439a125a048f47ff8feb631"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a193eb40d27ec21d0fc054dd5f42903ed" id="r_a193eb40d27ec21d0fc054dd5f42903ed"><td class="memItemLeft" align="right" valign="top">esp_adc_cal_characteristics_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a193eb40d27ec21d0fc054dd5f42903ed">adc_chars</a></td></tr>
+<tr class="separator:a193eb40d27ec21d0fc054dd5f42903ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad4eb98e1329f09c84b11215e24395e58" id="r_ad4eb98e1329f09c84b11215e24395e58"><td class="memItemLeft" align="right" valign="top">esp_adc_cal_value_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad4eb98e1329f09c84b11215e24395e58">val_type</a></td></tr>
+<tr class="separator:ad4eb98e1329f09c84b11215e24395e58"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acfd8918844b9425b91b1ee8b7318f83e" id="r_acfd8918844b9425b91b1ee8b7318f83e"><td class="memItemLeft" align="right" valign="top">TaskHandle_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acfd8918844b9425b91b1ee8b7318f83e">analog</a></td></tr>
+<tr class="separator:acfd8918844b9425b91b1ee8b7318f83e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4b4abc490769d3b56faa5f08f0c5ed67" id="r_a4b4abc490769d3b56faa5f08f0c5ed67"><td class="memItemLeft" align="right" valign="top">TaskHandle_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4b4abc490769d3b56faa5f08f0c5ed67">filter</a></td></tr>
+<tr class="separator:a4b4abc490769d3b56faa5f08f0c5ed67"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aabbbeebe129ebdee8b29763b47689b70" id="r_aabbbeebe129ebdee8b29763b47689b70"><td class="memItemLeft" align="right" valign="top">TaskHandle_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aabbbeebe129ebdee8b29763b47689b70">data_obtain</a></td></tr>
+<tr class="separator:aabbbeebe129ebdee8b29763b47689b70"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Descripción detallada</h2>
+<div class="textblock"><p>main con tareas y colas creadas </p>
+<dl class="section author"><dt>Autor</dt><dd>David Martín-Sacristán Avilés (<a href="https://github.com/DavidM-SA/INSTRUMENTACION-AVANZADA">https://github.com/DavidM-SA/INSTRUMENTACION-AVANZADA</a>) </dd></dl>
+<dl class="section version"><dt>Versión</dt><dd>0.1 </dd></dl>
+<dl class="section date"><dt>Fecha</dt><dd>2024-04-04 </dd></dl>
+<dl class="section see"><dt>Ver también</dt><dd><a class="el" href="fir__filter_8h.html">fir_filter.h</a> <a class="el" href="fir__filter_8cpp.html" title="Valores calculados con http://t-filter.engineerjs.com/.">fir_filter.cpp</a> </dd></dl>
+<dl class="section note"><dt>Nota</dt><dd>Práctica 1 de <b>Instrumentación Avanzada</b>. </dd></dl>
+<dl class="section attention"><dt>Atención</dt><dd>El programa esta pensado para correr en un ESP-32. </dd></dl>
+<dl class="section warning"><dt>Atención</dt><dd>Para conectarse a la red debe rellenar bien los datos de MQTT-Client o no podra conectarse a internet y darse de alta en el topic.</dd></dl>
+<dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) 2024 </dd></dl>
+
+<p class="definition">Definición en el archivo <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+</div><h2 class="groupheader">Documentación de funciones</h2>
+<a id="a76f1e6bccf6e83227b467abf53ebcfaf" name="a76f1e6bccf6e83227b467abf53ebcfaf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a76f1e6bccf6e83227b467abf53ebcfaf">&#9670;&#160;</a></span>client()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">EspMQTTClient client </td>
+          <td>(</td>
+          <td class="paramtype">&quot;Mallware&quot;</td>          <td class="paramname"><span class="paramname">, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&quot;TuPutaMadre1993&quot;</td>          <td class="paramname"><span class="paramname">, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&quot;mqtt-dashboard.com&quot;</td>          <td class="paramname"><span class="paramname">, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&quot;MQTTUsername&quot;</td>          <td class="paramname"><span class="paramname">, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&quot;MQTTPassword&quot;</td>          <td class="paramname"><span class="paramname">, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&quot;alumno&quot;</td>          <td class="paramname"><span class="paramname">, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">1883</td>          <td class="paramname"><span class="paramname"></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Datos de la red y del Broker para la conexion MQTT. </p>
+
+</div>
+</div>
+<a id="a5c894d6bd033b37dc72a6c0e611cbec9" name="a5c894d6bd033b37dc72a6c0e611cbec9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5c894d6bd033b37dc72a6c0e611cbec9">&#9670;&#160;</a></span>filterCode()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void filterCode </td>
+          <td>(</td>
+          <td class="paramtype">void *</td>          <td class="paramname"><span class="paramname"><em>pvParameters</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Tarea para filtrar el dato obtenida con el conversor analogico digital. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pvParameters</td><td>parametros internos de la tarea </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definición en la línea <a class="el" href="main_8cpp_source.html#l00166">166</a> del archivo <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a17d35c35a2688e6a12e1d76d4353ba1f" name="a17d35c35a2688e6a12e1d76d4353ba1f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a17d35c35a2688e6a12e1d76d4353ba1f">&#9670;&#160;</a></span>Imprimir()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Imprimir </td>
+          <td>(</td>
+          <td class="paramtype">const String &amp;</td>          <td class="paramname"><span class="paramname"><em>payload</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Otra forma de poner la matriz usada para darse de alta en un Topic. </p>
+<p>otra forma de imprimir la orden para darse de alta</p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">payload</td><td>Parametro de la libreria usada para MQTT.</td></tr>
+    <tr><td class="paramname">payload</td><td>valor de la libreria para darse de alta en un topic </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definición en la línea <a class="el" href="main_8cpp_source.html#l00239">239</a> del archivo <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+
+</div>
+</div>
+<a id="afe461d27b9c48d5921c00d521181f12f" name="afe461d27b9c48d5921c00d521181f12f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afe461d27b9c48d5921c00d521181f12f">&#9670;&#160;</a></span>loop()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void loop </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Ejecutamos client.loop() a fondo perdido para no perder la conexion con el Broker. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="main_8cpp_source.html#l00133">133</a> del archivo <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ad71088bd5c9a7520f423e9a1ea078444" name="ad71088bd5c9a7520f423e9a1ea078444"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad71088bd5c9a7520f423e9a1ea078444">&#9670;&#160;</a></span>onConnectionEstablished()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void onConnectionEstablished </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>funcion para darnos de alta en los topics cuando la conexion este establecida. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="main_8cpp_source.html#l00121">121</a> del archivo <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a4fc01d736fe50cf5b977f755b675f11d" name="a4fc01d736fe50cf5b977f755b675f11d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4fc01d736fe50cf5b977f755b675f11d">&#9670;&#160;</a></span>setup()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void setup </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>esto es un <em>comentario</em> mas detallado del <b>Setup</b> </p>
+<h3><a class="anchor" id="autotoc_md0"></a>
+Example</h3>
+<p>void <a class="el" href="#a4fc01d736fe50cf5b977f755b675f11d" title="esto es un comentario mas detallado del Setup">setup()</a> // Setup declaration <br  />
+{ <br  />
+ Serial.begin(921600); //monitor_speed = 921600 <br  />
+ } </p>
+
+<p class="definition">Definición en la línea <a class="el" href="main_8cpp_source.html#l00075">75</a> del archivo <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+
+</div>
+</div>
+<a id="acb1e1a92ca5ea5cdb0589137717dc023" name="acb1e1a92ca5ea5cdb0589137717dc023"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acb1e1a92ca5ea5cdb0589137717dc023">&#9670;&#160;</a></span>Signal_Values_Code()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Signal_Values_Code </td>
+          <td>(</td>
+          <td class="paramtype">void *</td>          <td class="paramname"><span class="paramname"><em>pvParameters</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Tarea para sacar el valor medio de la señal. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pvParameters</td><td>parametros internos de la tarea </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definición en la línea <a class="el" href="main_8cpp_source.html#l00191">191</a> del archivo <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a37d7917fb0fdbe1e566f483e0c4be983" name="a37d7917fb0fdbe1e566f483e0c4be983"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a37d7917fb0fdbe1e566f483e0c4be983">&#9670;&#160;</a></span>signalCode()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void signalCode </td>
+          <td>(</td>
+          <td class="paramtype">void *</td>          <td class="paramname"><span class="paramname"><em>pvParameters</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Tarea para leer el dato con el conversor analogico digital. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pvParameters</td><td>parametros internos de la tarea </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definición en la línea <a class="el" href="main_8cpp_source.html#l00143">143</a> del archivo <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Documentación de variables</h2>
+<a id="a193eb40d27ec21d0fc054dd5f42903ed" name="a193eb40d27ec21d0fc054dd5f42903ed"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a193eb40d27ec21d0fc054dd5f42903ed">&#9670;&#160;</a></span>adc_chars</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">esp_adc_cal_characteristics_t adc_chars</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="main_8cpp_source.html#l00038">38</a> del archivo <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+
+</div>
+</div>
+<a id="acfd8918844b9425b91b1ee8b7318f83e" name="acfd8918844b9425b91b1ee8b7318f83e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acfd8918844b9425b91b1ee8b7318f83e">&#9670;&#160;</a></span>analog</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TaskHandle_t analog</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="main_8cpp_source.html#l00042">42</a> del archivo <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+
+</div>
+</div>
+<a id="aeadc8317fabd2f0f917a64887a2ba183" name="aeadc8317fabd2f0f917a64887a2ba183"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeadc8317fabd2f0f917a64887a2ba183">&#9670;&#160;</a></span>averaje</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float averaje</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="main_8cpp_source.html#l00031">31</a> del archivo <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ade1276909439a125a048f47ff8feb631" name="ade1276909439a125a048f47ff8feb631"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ade1276909439a125a048f47ff8feb631">&#9670;&#160;</a></span>colaFiltro</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">QueueHandle_t colaFiltro</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="main_8cpp_source.html#l00035">35</a> del archivo <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ae0c330d12a0e08fdf87ef2717291a75e" name="ae0c330d12a0e08fdf87ef2717291a75e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae0c330d12a0e08fdf87ef2717291a75e">&#9670;&#160;</a></span>colaSignal</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">QueueHandle_t colaSignal</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="main_8cpp_source.html#l00034">34</a> del archivo <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+
+</div>
+</div>
+<a id="aabbbeebe129ebdee8b29763b47689b70" name="aabbbeebe129ebdee8b29763b47689b70"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aabbbeebe129ebdee8b29763b47689b70">&#9670;&#160;</a></span>data_obtain</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TaskHandle_t data_obtain</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="main_8cpp_source.html#l00044">44</a> del archivo <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a4b4abc490769d3b56faa5f08f0c5ed67" name="a4b4abc490769d3b56faa5f08f0c5ed67"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4b4abc490769d3b56faa5f08f0c5ed67">&#9670;&#160;</a></span>filter</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TaskHandle_t filter</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="main_8cpp_source.html#l00043">43</a> del archivo <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+
+</div>
+</div>
+<a id="aac6a14304a29007ab9799c9c3c66045b" name="aac6a14304a29007ab9799c9c3c66045b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aac6a14304a29007ab9799c9c3c66045b">&#9670;&#160;</a></span>filterFIR</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_sample_filter.html">SampleFilter</a> filterFIR</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="main_8cpp_source.html#l00028">28</a> del archivo <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+
+</div>
+</div>
+<a id="afb87c62011f7b5c27594667f97585199" name="afb87c62011f7b5c27594667f97585199"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afb87c62011f7b5c27594667f97585199">&#9670;&#160;</a></span>maxim</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float maxim</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="main_8cpp_source.html#l00031">31</a> del archivo <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a3fa3b7a1bf5d989eb22566a75e45bb6a" name="a3fa3b7a1bf5d989eb22566a75e45bb6a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3fa3b7a1bf5d989eb22566a75e45bb6a">&#9670;&#160;</a></span>minimim</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float minimim =4500</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="main_8cpp_source.html#l00031">31</a> del archivo <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+
+</div>
+</div>
+<a id="aa1b52d3420b70e48d50785f445d4f520" name="aa1b52d3420b70e48d50785f445d4f520"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa1b52d3420b70e48d50785f445d4f520">&#9670;&#160;</a></span>repet</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int repet = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="main_8cpp_source.html#l00030">30</a> del archivo <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a99848472e0fd508086987c6465bd26de" name="a99848472e0fd508086987c6465bd26de"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a99848472e0fd508086987c6465bd26de">&#9670;&#160;</a></span>senal</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t senal</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="main_8cpp_source.html#l00029">29</a> del archivo <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ad4eb98e1329f09c84b11215e24395e58" name="ad4eb98e1329f09c84b11215e24395e58"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad4eb98e1329f09c84b11215e24395e58">&#9670;&#160;</a></span>val_type</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">esp_adc_cal_value_t val_type</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="main_8cpp_source.html#l00039">39</a> del archivo <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_69161428018e52ad84691a5947f27cc9.html">Github</a></li><li class="navelem"><a class="el" href="dir_6f04dc7973f1f0e29bc8f862f5d8a1d2.html">INSTRUMENTACION-AVANZADA</a></li><li class="navelem"><a class="el" href="dir_9b1151927fe191a2daf13f8e94a10eae.html">IOT</a></li><li class="navelem"><a class="el" href="dir_58ff454feb99f73e72a8b5fcd62b72b7.html">src</a></li><li class="navelem"><a class="el" href="main_8cpp.html">main.cpp</a></li>
+    <li class="footer">Generado por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+  </ul>
+</div>
+</body>
+</html>
