@@ -1,4 +1,4 @@
-Practica 1.
+Practica 1.\n
 Programas realizados en clase de instrumentacion avanzada.
 Placa base ESP-32.
 Pruebas de TortoiseGit y TortoiseSVN.
